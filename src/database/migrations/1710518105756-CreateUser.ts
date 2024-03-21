@@ -1,7 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
 export class CreateUser1710518105756 implements MigrationInterface {
-
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
@@ -17,7 +16,7 @@ export class CreateUser1710518105756 implements MigrationInterface {
                     {
                         name: "userName",
                         type: "varchar",
-                        length: "100",                        
+                        length: "100",
                     },
                     {
                         name: "email",
@@ -28,23 +27,24 @@ export class CreateUser1710518105756 implements MigrationInterface {
                     {
                         name: "password",
                         type: "varchar",
-                        length: "20",
+                        length: "255",
                     },
                     {
-                        name: "phoneNumer",
+                        name: "phoneNumber",
                         type: "varchar",
                         length: "20",
-                    },  
+                    },
                     {
                         name: "address",
                         type: "varchar",
                         length: "100",
-                    }, 
+                    },
                     {
                         name: "rol",
-                        type: "enum", 
-                        enum:["student", "teacher", "admin"],
-                    }, 
+                        type: "enum",
+                        enum: ["student", "teacher", "admin"],
+                        default: "'student'",
+                    },
                     {
                         name: "created_at",
                         type: "timestamp",
@@ -55,14 +55,15 @@ export class CreateUser1710518105756 implements MigrationInterface {
                         type: "timestamp",
                         default: "CURRENT_TIMESTAMP",
                         onUpdate: "CURRENT_TIMESTAMP",
-                    }
-                ]
-            }), 
+                    },
+                ],
+            }),
             true
         );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.dropTable("users");
     }
 
 }

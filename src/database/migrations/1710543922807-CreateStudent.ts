@@ -1,7 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
 export class CreateStudent1710543922807 implements MigrationInterface {
-
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
@@ -15,30 +14,30 @@ export class CreateStudent1710543922807 implements MigrationInterface {
                         generationStrategy: "increment",
                     },
                     {
-                        name: "idStudent",
-                        type: "int"
+                        name: "user_id",
+                        type: "int",
                     },
                     {
                         name: "level",
                         type: "enum",
-                        enum: ["beginner", "medium", "advanced"]
+                        enum: ["beginner", "medium", "advanced"],
+                        default: "'beginner'", // Los valores por defecto de los enums deben estar entre comillas simples
                     }
                 ],
-                foreignKeys:[
+                foreignKeys: [
                     {
-                        columnNames:["idStudent"],
+                        columnNames: ["user_id"],
                         referencedTableName: "users",
                         referencedColumnNames: ["id"],
-                        onDelete: "CASCADE"
+                        onDelete: "CASCADE", // Asegura que si se elimina un User, el Student relacionado también se elimine.
                     }
                 ]
-
-            }),   //he añadido esta coma
-            true  //he añadido este true
+            }),
+            true // Indica si debe crear la tabla de nuevo si ya existe.
         );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.dropTable("students");
     }
-
 }
