@@ -1,6 +1,6 @@
 import { Student, Level } from "../../models/student";
 import { User } from "../../models/user";
-import { AppDataSource } from "../data-source";
+import  AppDataSource  from "../data-source";
 
 AppDataSource.initialize()
   .then(async () => {
