@@ -2,8 +2,10 @@ import { DataSource } from "typeorm";
 import { User } from "../models/user";
 import { Teacher } from "../models/teacher";
 import { Student } from "../models/student";
+import { Clase } from "../models/class";
+import { Inscripcion } from "../models/inscription";
 
-export const AppDataSource = new DataSource ({
+const AppDataSource = new DataSource ({
     type: "mysql",
     host: "localhost",
     port: 3309,
@@ -13,7 +15,9 @@ export const AppDataSource = new DataSource ({
     entities: [
         User,
         Teacher,
-        Student
+        Student,
+        Clase,
+        Inscripcion,
     ],
     migrations: [
         `${__dirname}/migrations/**/*{.js,.ts}`
@@ -22,10 +26,12 @@ export const AppDataSource = new DataSource ({
     logging: false, 
 });
 
-AppDataSource.initialize ()
-    .then(()=>{
-        console.log ("Se ha conetado la base de datos ...🚀")
-    })
-    .catch((error)=>{
-        console.log ("Ha habido un error: "+ error)
-    })
+// AppDataSource.initialize ()
+//     .then(()=>{
+//         console.log ("Se ha conetado la base de datos ...🚀")
+//     })
+//     .catch((error)=>{
+//         console.log ("Ha habido un error: "+ error)
+//     })
+
+export default AppDataSource;
