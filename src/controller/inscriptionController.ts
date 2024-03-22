@@ -32,9 +32,17 @@ export class InscriptionsController {
 
         try {
             const inscriptions = await inscriptionRepository.find({
-                relations: ["student", "clase"]
+                relations: ["student","student.user", "clase"]
             });
-            res.json(inscriptions);
+            const transformInscription = inscriptions.map(inscription => ({
+                studentName: inscription?.student?.user?.userName, 
+                studentId: inscription.student?.id,
+                classId: inscription.clase?.id,
+                dance: inscription.clase?.dance,
+                day: inscription.clase?.day,
+                startTime: inscription.clase?.startTime
+            })) 
+            res.json(transformInscription);
         } catch (error) {
             console.error(error);
             res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

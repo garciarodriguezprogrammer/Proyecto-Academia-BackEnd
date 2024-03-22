@@ -8,7 +8,7 @@ const inscriptionsController = new InscriptionsController();
 const router = express.Router();
 
 
-router.get('/', verifyKey, inscriptionsController.getAllInscriptions);
+router.get('/', verifyKey, isAdmin, inscriptionsController.getAllInscriptions);
 router.get('/:id', verifyKey, inscriptionsController.getInscriptionById);
 router.post('/', verifyKey, inscriptionsController.createInscription);
 router.patch('/:id', verifyKey, inscriptionsController.updateInscription);
