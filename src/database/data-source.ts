@@ -26,12 +26,5 @@ const AppDataSource = new DataSource ({
     logging: false, 
 });
 
-// AppDataSource.initialize ()
-//     .then(()=>{
-//         console.log ("Se ha conetado la base de datos ...🚀")
-//     })
-//     .catch((error)=>{
-//         console.log ("Ha habido un error: "+ error)
-//     })
 
 export default AppDataSource;

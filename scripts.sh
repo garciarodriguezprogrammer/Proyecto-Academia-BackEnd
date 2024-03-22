@@ -14,3 +14,10 @@ npx tsc --init
 
 # Así creo las migraciones
 npx typeorm migration:create ./src/database/migrations/CreateUser
+npx typeorm migration:create ./src/database/migrations/CreateStudent
+npx typeorm migration:create ./src/database/migrations/CreateTeacher
+npx typeorm migration:create ./src/database/migrations/CreateClass
+npx typeorm migration:create ./src/database/migrations/CreateInscription
+
+# Ejecutar migraciones para crear las tablas
+npx typeorm-ts-node-commonjs migration:run -d ./src/database/data-source.ts
