@@ -8,8 +8,8 @@ AppDataSource.initialize()
     const userRepository = AppDataSource.getRepository(User);
 
     // Asegúrate de que existan usuarios para estos profesores
-    const user3 = await userRepository.findOneBy({ id: 5 });
-    const user4 = await userRepository.findOneBy({ id: 6 });
+    const user3 = await userRepository.findOneBy({ id: 6 });
+    const user4 = await userRepository.findOneBy({ id: 7 });
 
     // Para los profesores
     const teachersData = [

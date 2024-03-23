@@ -9,7 +9,7 @@ const classController = new ClassesController();
 
 router.get('/',verifyKey, classController.getAllClasses);
 router.get('/:id',verifyKey, classController.getClassById);
-router.post('/',verifyKey, classController.createClass);
+router.post('/',verifyKey, isAdmin, classController.createClass);
 router.patch('/:id',verifyKey, classController.updateClass);
 router.delete('/:id', verifyKey, classController.deleteClass);
 

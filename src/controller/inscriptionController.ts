@@ -51,7 +51,7 @@ export class InscriptionsController {
         }
     }
 
-    // Obtener una inscripción por ID
+    // Obtener una inscripción por su ID
     async getInscriptionById(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
         const inscriptionRepository = AppDataSource.getRepository(Inscripcion);
@@ -124,6 +124,43 @@ export class InscriptionsController {
             console.error(error);
             res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 message: "Error deleting inscription",
+            });
+        }
+    }
+
+    //Obtener inscripción por alumno
+    async getInscriptionByStudent(req: Request, res: Response) {
+        const id  = parseInt (req.params.id);
+        const inscriptionRepository = AppDataSource.getRepository(Inscripcion);
+        if(isNaN(id)) {
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                message: "Invalid studentId",
+            })
+        } 
+        try {
+            const inscriptions = await inscriptionRepository.find({
+                where: {student: {id: id}},
+                relations: ["student", "clase", "clase.teacher"]
+            });
+            if (inscriptions.length > 0) {
+                const formatedInscriptions = inscriptions.map(inscription => ({
+                    inscriptionId: inscription.id,
+                    classId: inscription.clase?.id,
+                    dance: inscription.clase?.dance,
+                    day: inscription.clase?.day,
+                    startTime: inscription.clase?.startTime,
+                    endTime: inscription.clase?.endTime
+                }));
+                res.json(formatedInscriptions)
+                
+            } else {
+                res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                    message: "Error getting inscription by student",
+                });
+            }
+        } catch (error) {
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                message: "Error recuperando inscripciones por alumno",
             });
         }
     }

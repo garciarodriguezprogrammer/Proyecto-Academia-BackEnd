@@ -93,11 +93,11 @@ export class AuthController {
                     message: "Incorrect email or password",
                 });
             }
-
+            //aquí se construye el cuerpo del token
             const tokenPayload = {
-                userId: user.id,
+                id: user.id,
                 userName: user.userName,
-                role: user.rol
+                rol: user.rol
             };
 
             const token = jwt.sign(tokenPayload, secretKey, {
