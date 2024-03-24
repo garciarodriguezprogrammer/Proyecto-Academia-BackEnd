@@ -18,4 +18,12 @@
        "password": "123456",
         "address": "Calle 2",
        "phoneNumber": 456736
-    }   
+    }  
+
+    #Inscribirse en una clase:
+     {
+    
+    "studentId": 1,
+    "classId": 2
+           
+    } 

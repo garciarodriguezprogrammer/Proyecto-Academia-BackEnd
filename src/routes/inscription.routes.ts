@@ -15,7 +15,7 @@ router.post('/', verifyKey, inscriptionsController.createInscription);
 router.patch('/:id', verifyKey, inscriptionsController.updateInscription);
 router.delete('/:id',verifyKey,  inscriptionsController.deleteInscription);
 //Obtener las inscripciones por id de estudiante
-router.get('/byStudent/:id',  inscriptionsController.getInscriptionByStudent); //volver a añadir verifykey
+router.get('/byStudent/:id',verifyKey,  inscriptionsController.getInscriptionByStudent); //volver a añadir verifykey
 
 
 

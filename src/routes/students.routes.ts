@@ -7,6 +7,9 @@ const router = express.Router();
 
 router.get('/', verifyKey, usersController.listStudents);
 router.get('/:id', verifyKey, usersController.studentById);
+//Obtener studentId por su id de usuario
+router.get('/getStudentId/:id', verifyKey, usersController.getStudentIdByUserId);
+
 
 
 export default router;

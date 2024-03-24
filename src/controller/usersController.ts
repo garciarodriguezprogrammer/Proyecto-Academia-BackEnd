@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import AppDataSource from "../database/data-source";
 import { User, Role } from "../models/user";
 import { StatusCodes } from "http-status-codes";
+import { Student } from "../models/student";
+import { Teacher } from "../models/teacher";
 
 export class UsersController {
     async getAllUsers(req: Request, res: Response): Promise<void> {
@@ -163,6 +165,53 @@ export class UsersController {
             // Si hay un error durante la recuperación del usuario, devolver un error 500
             res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 message: "Error retrieving student",
+            });
+        }
+    }
+
+    //Recuperar studentID por su id de usuario
+    async getStudentIdByUserId(req: Request, res: Response): Promise<void> {
+        const studentRepository = AppDataSource.getRepository(Student);
+        const { id } = req.params;
+
+        try {
+            const student = await studentRepository.findOne({
+                where: {user: {id: parseInt(id)}}
+            });
+            if (student) {
+                res.status(StatusCodes.OK).json({id: student.id});
+            } else {
+                res.status(StatusCodes.NOT_FOUND).json({
+                    message: "Student not found",
+                });
+            }
+        } catch (error) {
+            console.error(error);
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                message: "Error retrieving student",
+            });
+        }
+    }
+    //Recuperar teacherID por su id de usuario
+    async getTeacherIdByUserId(req: Request, res: Response): Promise<void> {
+        const teacherRepository = AppDataSource.getRepository(Teacher);
+        const { id } = req.params;
+
+        try {
+            const teacher = await teacherRepository.findOne({
+                where: {user: {id: parseInt(id)}}
+            });
+            if (teacher) {
+                res.status(StatusCodes.OK).json({id: teacher.id});
+            } else {
+                res.status(StatusCodes.NOT_FOUND).json({
+                    message: "Teacher not found",
+                });
+            }
+        } catch (error) {
+            console.error(error);
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                message: "Error retrieving teacher",
             });
         }
     }
