@@ -12,6 +12,7 @@ router.get('/:id',verifyKey, classController.getClassById);
 router.post('/',verifyKey, isAdmin, classController.createClass); 
 router.patch('/:id',verifyKey, isAdmin, classController.updateClass);
 router.delete('/:id', verifyKey, isAdmin, classController.deleteClass);
+router.get('/getClassesByTeacher/:id', verifyKey, classController.getClassesByTeacher);
 
 
 

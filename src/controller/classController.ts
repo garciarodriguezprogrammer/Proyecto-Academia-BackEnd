@@ -156,4 +156,40 @@ export class ClassesController {
       });
     }
   }
+
+  // Obtener todas las clases según el profesor
+  async getClassesByTeacher(req: Request, res: Response): Promise<void> {
+    const classRepository = AppDataSource.getRepository(Clase);
+    const teacherId = req.params.id
+    try {
+      const classes = await classRepository.find({
+        where: {
+          teacher: {
+            id: parseInt(teacherId)
+          }
+        },
+        relations: [
+          "teacher",
+          "enrollments",
+          "enrollments.student",
+          "enrollments.student.user",
+        ],
+      });
+      const formattedClasses = classes.map((clase) => ({
+        ...clase,
+        enrollments: clase.enrollments?.map((enrollment) => ({
+          studentId: enrollment.student?.id,
+          studentName: enrollment.student?.user?.userName,
+        })),
+      }));
+
+      res.json(formattedClasses);
+    } catch (error) {
+      console.error(error);
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        message: "Error retrieving classes",
+      });
+    }
+  }
 }
+
