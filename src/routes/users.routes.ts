@@ -6,11 +6,11 @@ import isAdmin from "../middleware/adminMiddleware";
 const usersController = new UsersController();
 const router = express.Router();
 
-router.get('/', verifyKey, isAdmin, usersController.getAllUsers);
+router.get('/', verifyKey, isAdmin, usersController.getAllUsers); 
 router.get('/:id', verifyKey, usersController.getUserById);
 router.post('/', verifyKey, usersController.createUser);
 router.patch('/:id', verifyKey, usersController.updateUser);
-router.delete('/:id', verifyKey, usersController.deleteUser);
+router.delete('/:id', verifyKey, isAdmin, usersController.deleteUser);
 
 router.get('/students', usersController.listStudents);
 

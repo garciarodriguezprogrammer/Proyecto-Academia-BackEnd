@@ -14,7 +14,7 @@ export class AuthController {
         const role: Role = req.params.role as Role; // Obtiene el rol de los parámetros de la ruta
 
         // Validar el rol
-        if (!Object.values(Role).includes(role)) {
+        if (!Object.values(Role).includes(role)) { 
             return res.status(StatusCodes.BAD_REQUEST).json({
                 message: "Invalid role provided",
             });
