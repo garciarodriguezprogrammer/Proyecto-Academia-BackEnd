@@ -21,3 +21,13 @@ npx typeorm migration:create ./src/database/migrations/CreateInscription
 
 # Ejecutar migraciones para crear las tablas
 npx typeorm-ts-node-commonjs migration:run -d ./src/database/data-source.ts
+
+# Revertir migraciones para desarrollo y produccion 
+npx typeorm-ts-node-commonjs migration:revert -d ./src/data-source.ts
+
+# Ejecución de seeders
+npx ts-node src/database/seeders/userSeeder.ts
+npx ts-node src/database/seeders/classSeeder.ts
+npx ts-node src/database/seeders/inscriptionSeeder.ts
+npx ts-node src/database/seeders/studentSeeder.ts
+npx ts-node src/database/seeders/teacherSeeder.ts
